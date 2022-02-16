@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax 1 - text file</title>
+</head>
+<body>
+    <nav>
+        <ul class="nav" style="justify-content: space-around;padding: 15px 15px; text-transform: uppercase; display: flex;list-style: none">
+            <li><a href="ajax.html">home</a></li>
+            <li><a href="ajaxOne.html">one</a></li>
+            <li><a href="ajaxTwo.html">two</a></li>
+            <li><a href="ajaxThree.html">three</a></li>
+            <li><a href="ajaxFour.html">four</a></li>
+        </ul>
+    </nav>
+
+<button id="button">Get Text file</button>
+<br>
+<div id="text"></div>
+
+
+
+<script>
+    //create event listener
+
+    document.getElementById('button').addEventListener('click', loadText)
+
+    function loadText(){
+        //create xhr object
+
+        var xhr = new XMLHttpRequest();
+        // open - type,url/filename, asynch or nah
+        xhr.open('GET', 'sample.txt', true)
+        console.log('READYSTATE: ', xhr.readyState)
+        //onload ili onreadystatechange
+        //200 = "ok"
+        //optional - used for loaders
+        xhr.onprogress = function (){
+            console.log('READYSTATE: ', xhr.readyState);
+        }
+        xhr.onload = function(){
+            if(this.status == 200){
+                // console.log(this.responseText)
+                document.getElementById('text').innerHTML = this.responseText
+            } else if(this.status = 404) {
+                document.getElementById('text').innerHTML = 'not f0und 404';
+            }
+        }
+
+        xhr.onerror = function(){
+            console.log("Request error..")
+        }
+        // xhr.onreadystatechange = function() {
+        //     console.log('READYSTATE: ', xhr.readyState)
+        //     if(this.readyState == 4 && this.status == 200){
+        //         // console.log(this.responseText);
+        //     }
+        // }
+        //send request
+        xhr.send();
+    }
+
+    // 0 request not initialized
+    // 1 server conn established
+    // 2 request received
+    // 3 proccesing request
+    // 4 request finished and response is ready
+</script>
+</body>
+</html>

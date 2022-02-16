@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax fetch from PHP MYSQL</title>
+</head>
+<body>
+    <nav>
+        <ul class="nav" style="justify-content: space-around;padding: 15px 15px; text-transform: uppercase; display: flex;list-style: none">
+            <li><a href="ajax.html">home</a></li>
+            <li><a href="ajaxOne.html">one</a></li>
+            <li><a href="ajaxTwo.html">two</a></li>
+            <li><a href="ajaxThree.html">three</a></li>
+            <li><a href="ajaxFour.html">four</a></li>
+        </ul>
+    </nav>
+    <h1>Fetch data from table PHP & MYSQL</h1>
+   
+    <button id="button">Get users</button>
+    <br><br>
+    <h2>Users</h2>
+    <div id="users"></div>
+
+
+
+    <script>
+
+        
+        document.getElementById('button').addEventListener('click',loadUsers);
+   
+        //users
+
+        function loadUsers(){
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET','users.php', true);
+
+
+            xhr.onload = function(){
+
+                if(this.status == 200){
+
+                    var users = JSON.parse(this.responseText);
+
+                    var output = '';
+
+                    for(var i in users){
+                    output += '<ul>' + 
+                    '<li>ID: '+users[i].id+'</li>' +
+                    '<li>Name: '+users[i].name+'</li>' + 
+                    '</ul>'; 
+                }
+                    document.getElementById('users').innerHTML = output;
+                }
+            }
+            xhr.send();
+        }
+    </script>
+</body>
+</html>
